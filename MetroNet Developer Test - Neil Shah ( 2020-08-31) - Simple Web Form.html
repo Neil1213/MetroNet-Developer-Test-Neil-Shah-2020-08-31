@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!--Setting the title of the page-->
+        <title>Team Introduction</title>
+        <!--Linking the external stylesheet-->
+        <link rel="stylesheet" type="text/css" href="index.css">
+    </head>
+    <body>
+        <!--Introduction Form-->
+        <form id = "introductionForm" onsubmit="processForm(event)" >
+            <label for="fname">Name:</label><br>
+            <input type="text" id="fname" name="fname" placeholder ="John Doe" value="" required><br>
+            <label for="lname">Fun Fact:</label><br>
+            <input type="text" id="funFact" name="funFact" placeholder = "MetroNet is the best!!" value="" required><br><br>
+            <input type="submit">
+        </form>
+        <!--Introduction boc-->
+        <div id="introductionBox"></div>
+    </body>
+    <!--JavaScript to validate and process the form-->
+    <script>
+        //Function that processes and validates the form and upon successful validation displays the introduction boc
+        function processForm(e){
+            e.preventDefault() //prevent the reloading of the page
+            let name = document.getElementById("fname").value //retrieving the name from the form
+            let funFact = document.getElementById("funFact").value  //retrieving the fun fact from the form
+            var nameRegex = /^[A-Za-z]+$/; //regex to validate the name
+            //Validating the name and displaying alert if invalid name
+            if(!nameRegex.test(name.replace(/\s/g, "")))
+                alert('Invalid Name.');
+            else{
+                console.log("Name: " + name) //logging the name to the browser console
+                console.log("Fun Fact: " + funFact) //logging the fun fact to the browser console
+                document.getElementById("introductionForm").style.display = "none" //Hiding the introduction form
+                document.getElementById("introductionBox").style.display = "block" //Dispaying the introduction box
+                //Displaying the contents of the introduction box
+                document.getElementById("introductionBox").innerHTML = `<h3> Name: ` + name + `</h3> <h3> Fun Fact: ` + 
+                    funFact + `</h3> <button onclick="displayForm()">Introduce Again?</button>`  
+            }
+        }
+        //Function to introduce a different team member
+        function displayForm(){
+            document.getElementById("introductionBox").style.display = "none" //Hiding the introduction box
+            document.getElementById("introductionForm").style.display = "block"//Displaying the introduction form
+        }
+    </script>
+</html>
